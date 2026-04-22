@@ -1,3 +1,4 @@
 .DS_Store
 database.sqlite
 api/mail.log
+api/config.php

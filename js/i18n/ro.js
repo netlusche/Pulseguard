@@ -25,7 +25,30 @@ export default {
         noData: "Nu există date încă.",
         deleteConfirm: "Ștergeți această înregistrare?",
         trendWarningTitle: "Avertisment: Tendință critică!",
-        trendWarningDesc: "Media ultimelor 3 măsurători indică o creștere a tensiunii arteriale."
+        trendWarningDesc: "Media ultimelor 3 măsurători indică o creștere a tensiunii arteriale.",
+        expandView: "Extinde vederea",
+        from: "De la",
+        to: "Până la",
+        selectPeriod: "Alege perioada",
+        backToDashboard: "Înapoi la panou",
+        status: {
+            greenTitle: "Optim",
+            greenDesc: "Totul este în zona verde! Tensiunea ta medie din ultimele zile este optimă.",
+            yellowTitle: "Ușor ridicat",
+            yellowDesc: "Media ta este în intervalul normal-ridicat. Te rugăm să continui să monitorizezi.",
+            redTitle: "Constant ridicat",
+            redDesc: "Media ta din ultimele zile este prea mare. Se recomandă o vizită la medic.",
+            trendTitle: "Avertisment: Tendință critică!",
+            trendDesc: "A fost detectată o creștere bruscă.",
+            mildTrendTitle: "Tendință de creștere",
+            mildTrendDesc: "Tensiunea ta arterială prezintă o tendință de creștere spre intervalul normal-ridicat.",
+            goodTrendTitle: "Tendință pozitivă",
+            goodTrendDesc: "Tensiunea ta arterială scade și este în intervalul optim. Ține-o tot așa!",
+            acuteSpikeTitle: "Hipertensiune Acută",
+            acuteSpikeDesc: "Ultima ta măsurătoare este extrem de ridicată. Te rugăm să soliciți imediat sfatul medicului.",
+            outlierTitle: "Valoare Ridicată",
+            outlierDesc: "Ultima ta măsurătoare este un pic mai mare decât media. Ține-o sub observație."
+        }
     },
     common: {
         unit: "mmHg",

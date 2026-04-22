@@ -4,9 +4,26 @@ export default {
     props: ['state', 'i18n', 'storage'],
     template: `
         <div class="card">
-            <h2 class="card-title">{{ i18n.t('dashboard.historyTitle') }}</h2>
+            <div class="flex-between mb-2">
+                <h2 class="card-title" style="margin-bottom: 0;">{{ i18n.t('dashboard.historyTitle') }}</h2>
+                <button @click="$emit('back')" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">
+                    &larr; {{ i18n.t('dashboard.backToDashboard') }}
+                </button>
+            </div>
+            
+            <div class="form-grid-2" style="margin-bottom: 1.5rem; background: hsl(var(--muted)); padding: 1rem; border-radius: var(--radius);">
+                <div>
+                    <label>{{ i18n.t('dashboard.from') }}</label>
+                    <input type="date" v-model="fromDate">
+                </div>
+                <div>
+                    <label>{{ i18n.t('dashboard.to') }}</label>
+                    <input type="date" v-model="toDate">
+                </div>
+            </div>
+
             <ul class="history-list">
-                <li v-for="entry in sortedEntries" :key="entry.id" class="history-item" style="flex-wrap: wrap; gap: 0.5rem">
+                <li v-for="entry in filteredEntries" :key="entry.id" class="history-item" style="flex-wrap: wrap; gap: 0.5rem">
                     <div style="display: flex; align-items: center; gap: 1rem; flex: 1; flex-wrap: wrap; min-width: 250px">
                         <div class="text-muted" style="font-size: 0.85rem; min-width: 100px">
                             {{ formatDate(entry.timestamp, i18n.locale.value) }}
@@ -19,7 +36,6 @@ export default {
                     </div>
                     
                     <div style="display: flex; align-items: center; gap: 1rem">
-                        <!-- Short Notes Preview / Tooltip -->
                         <div v-if="entry.notes" class="tooltip" style="max-width: 200px">
                             <span class="text-muted" style="font-size: 0.8rem; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; max-width: 150px">
                                 "{{ entry.notes }}"
@@ -36,22 +52,33 @@ export default {
                     </div>
                 </li>
             </ul>
-            <div v-if="state.measurements.length === 0" class="text-muted" style="text-align: center; padding: 2rem">
+            <div v-if="filteredEntries.length === 0" class="text-muted" style="text-align: center; padding: 2rem">
                 {{ i18n.t('dashboard.noData') }}
-            </div>
-            <div style="text-align: right; margin-top: 1rem;">
-                <a href="#" @click.prevent="$emit('expand')" class="btn btn-ghost" style="padding: 0.5rem; font-size: 0.875rem;">
-                    {{ i18n.t('dashboard.expandView') }} &rarr;
-                </a>
             </div>
         </div>
     `,
     setup(props) {
         const Vue = window.Vue;
-        const sortedEntries = Vue.computed(() => {
+        
+        const today = new Date();
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(today.getDate() - 30);
+        
+        const fromDate = Vue.ref(thirtyDaysAgo.toISOString().split('T')[0]);
+        const toDate = Vue.ref(today.toISOString().split('T')[0]);
+
+        const filteredEntries = Vue.computed(() => {
+            const start = new Date(fromDate.value);
+            start.setHours(0, 0, 0, 0);
+            const end = new Date(toDate.value);
+            end.setHours(23, 59, 59, 999);
+            
             return [...props.state.measurements]
-                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-                .slice(0, 10);
+                .filter(m => {
+                    const d = new Date(m.timestamp);
+                    return d >= start && d <= end;
+                })
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         });
 
         const handleDelete = async (id) => {
@@ -61,6 +88,6 @@ export default {
             }
         };
 
-        return { sortedEntries, handleDelete, formatDate };
+        return { fromDate, toDate, filteredEntries, handleDelete, formatDate };
     }
 };

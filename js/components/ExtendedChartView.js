@@ -2,36 +2,68 @@ export default {
     props: ['state', 'i18n'],
     template: `
         <div class="card">
-            <h2 class="card-title">{{ i18n.t('dashboard.chartTitle') }}</h2>
-            <div style="position: relative; height: 300px; width: 100%;">
-                <canvas id="bpChart"></canvas>
+            <div class="flex-between mb-2">
+                <h2 class="card-title" style="margin-bottom: 0;">{{ i18n.t('dashboard.chartTitle') }}</h2>
+                <button @click="$emit('back')" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">
+                    &larr; {{ i18n.t('dashboard.backToDashboard') }}
+                </button>
             </div>
-            <div style="text-align: right; margin-top: 1rem;">
-                <a href="#" @click.prevent="$emit('expand')" class="btn btn-ghost" style="padding: 0.5rem; font-size: 0.875rem;">
-                    {{ i18n.t('dashboard.expandView') }} &rarr;
-                </a>
+            
+            <div class="form-grid-2" style="margin-bottom: 1.5rem; background: hsl(var(--muted)); padding: 1rem; border-radius: var(--radius);">
+                <div>
+                    <label>{{ i18n.t('dashboard.from') }}</label>
+                    <input type="date" v-model="fromDate" @change="updateChart">
+                </div>
+                <div>
+                    <label>{{ i18n.t('dashboard.to') }}</label>
+                    <input type="date" v-model="toDate" @change="updateChart">
+                </div>
+            </div>
+
+            <div style="position: relative; height: 400px; width: 100%;">
+                <canvas id="extendedBpChart"></canvas>
+            </div>
+            <div v-if="filteredData.length === 0" class="text-muted" style="text-align: center; padding: 2rem">
+                {{ i18n.t('dashboard.noData') }}
             </div>
         </div>
     `,
     setup(props) {
-        let chartInstance = null;
         const Vue = window.Vue;
+        let chartInstance = null;
+        
+        // Default to last 30 days
+        const today = new Date();
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(today.getDate() - 30);
+        
+        const fromDate = Vue.ref(thirtyDaysAgo.toISOString().split('T')[0]);
+        const toDate = Vue.ref(today.toISOString().split('T')[0]);
+        const filteredData = Vue.ref([]);
 
         const getChartData = () => {
-            const fourteenDaysAgo = new Date();
-            fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+            const start = new Date(fromDate.value);
+            start.setHours(0, 0, 0, 0);
+            const end = new Date(toDate.value);
+            end.setHours(23, 59, 59, 999);
             
-            return props.state.measurements
-                .filter(m => new Date(m.timestamp) >= fourteenDaysAgo)
+            const data = props.state.measurements
+                .filter(m => {
+                    const d = new Date(m.timestamp);
+                    return d >= start && d <= end;
+                })
                 .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+                
+            filteredData.value = data;
+            return data;
         };
 
         const updateChart = () => {
-            const ctx = document.getElementById('bpChart');
+            const ctx = document.getElementById('extendedBpChart');
             if (!ctx) return;
             
             const dataPoints = getChartData();
-            const labels = dataPoints.map(m => new Date(m.timestamp).toLocaleDateString(props.i18n.locale.value === 'de' ? 'de-DE' : 'en-US', { day: '2-digit', month: '2-digit' }));
+            const labels = dataPoints.map(m => new Date(m.timestamp).toLocaleDateString(props.i18n.locale.value === 'de' ? 'de-DE' : 'en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
             
             if (chartInstance) {
                 chartInstance.data.labels = labels;
@@ -78,7 +110,9 @@ export default {
         };
 
         Vue.onMounted(() => {
-            updateChart();
+            setTimeout(() => {
+                updateChart();
+            }, 50);
         });
 
         Vue.watch(() => props.state.measurements, () => {
@@ -93,6 +127,6 @@ export default {
             updateChart();
         });
 
-        return {};
+        return { fromDate, toDate, updateChart, filteredData };
     }
 };

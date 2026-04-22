@@ -25,7 +25,30 @@ export default {
         noData: "Brak danych.",
         deleteConfirm: "Usunąć ten wpis?",
         trendWarningTitle: "Ostrzeżenie: Krytyczny trend!",
-        trendWarningDesc: "Średnia z ostatnich 3 pomiarów wskazuje na rosnące ciśnienie."
+        trendWarningDesc: "Średnia z ostatnich 3 pomiarów wskazuje na rosnące ciśnienie.",
+        expandView: "Rozszerz widok",
+        from: "Od",
+        to: "Do",
+        selectPeriod: "Wybierz okres",
+        backToDashboard: "Wróć do panelu",
+        status: {
+            greenTitle: "Optymalne",
+            greenDesc: "Wszystko w normie! Twoje średnie ciśnienie krwi z ostatnich dni jest optymalne.",
+            yellowTitle: "Lekko podwyższone",
+            yellowDesc: "Twoja średnia mieści się w wysokim-normalnym zakresie. Proszę to obserwować.",
+            redTitle: "Trwale wysokie",
+            redDesc: "Twoja średnia z ostatnich dni jest zbyt wysoka. Zalecana wizyta u lekarza.",
+            trendTitle: "Ostrzeżenie: Krytyczny trend!",
+            trendDesc: "Wykryto nagły wzrost.",
+            mildTrendTitle: "Tendencja wzrostowa",
+            mildTrendDesc: "Twoje ciśnienie wykazuje tendencję wzrostową do zakresu wysoki-normalny.",
+            goodTrendTitle: "Pozytywny trend",
+            goodTrendDesc: "Twoje ciśnienie spada i jest w optymalnym zakresie. Oby tak dalej!",
+            acuteSpikeTitle: "Ostry wzrost ciśnienia",
+            acuteSpikeDesc: "Twój ostatni pomiar jest skrajnie wysoki. Niezwłocznie zasięgnij porady lekarza.",
+            outlierTitle: "Podwyższona wartość",
+            outlierDesc: "Twój ostatni pomiar jest jednorazowym odchyleniem w górę. Miej to na oku."
+        }
     },
     common: {
         unit: "mmHg",

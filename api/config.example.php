@@ -1,10 +1,12 @@
 <?php
 /**
- * PulseGuard Database Configuration
+ * PulseGuard Database Configuration (Example)
+ * 
+ * Please copy this file to 'config.php' and insert your actual credentials.
  */
 
 // DATABASE TYPE: 'sqlite' or 'mariadb'
-define('DB_TYPE', 'mariadb'); 
+define('DB_TYPE', 'sqlite'); 
 
 // SQLite Configuration
 define('DB_SQLITE_PATH', __DIR__ . '/../database.sqlite');
@@ -12,8 +14,8 @@ define('DB_SQLITE_PATH', __DIR__ . '/../database.sqlite');
 // MariaDB Configuration (Scaling)
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'pulseguard');
-define('DB_USER', 'frank');
-define('DB_PASS', '');
+define('DB_USER', 'your_database_user');
+define('DB_PASS', 'your_secure_password');
 
 // Mail Configuration
 define('MAIL_FROM', 'no-reply@pulseguard.de');

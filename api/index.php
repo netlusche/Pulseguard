@@ -55,7 +55,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $action = $_GET['action'] ?? '';
 
 function getSetting($db, $key, $default = '0') {
-    $stmt = $db->prepare("SELECT value FROM settings WHERE key = ?");
+    $stmt = $db->prepare("SELECT value FROM settings WHERE `key` = ?");
     $stmt->execute([$key]);
     $res = $stmt->fetchColumn();
     return $res !== false ? $res : $default;
@@ -244,7 +244,7 @@ try {
 
     if ($action === 'settings' && $user['role'] === 'admin') {
         if ($method === 'GET') {
-            $stmt = $db->query("SELECT key, value FROM settings");
+            $stmt = $db->query("SELECT `key`, value FROM settings");
             $settings = [];
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $settings[$row['key']] = $row['value'];
@@ -252,7 +252,7 @@ try {
             echo json_encode($settings);
         } elseif ($method === 'PUT') {
             $input = json_decode(file_get_contents('php://input'), true);
-            $stmt = $db->prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)");
+            $stmt = $db->prepare("REPLACE INTO settings (`key`, value) VALUES (?, ?)");
             foreach ($input as $k => $v) {
                 $stmt->execute([$k, (string)$v]);
             }

@@ -25,7 +25,30 @@ export default {
         noData: "Henüz veri yok.",
         deleteConfirm: "Bu kaydı silmek istiyor musunuz?",
         trendWarningTitle: "Uyarı: Kritik Trend!",
-        trendWarningDesc: "Son 3 ölçümünüzün ortalaması tansiyonun yükseldiğini gösteriyor."
+        trendWarningDesc: "Son 3 ölçümünüzün ortalaması tansiyonun yükseldiğini gösteriyor.",
+        expandView: "Görünümü genişlet",
+        from: "Başlangıç",
+        to: "Bitiş",
+        selectPeriod: "Dönem seç",
+        backToDashboard: "Panele dön",
+        status: {
+            greenTitle: "Optimal",
+            greenDesc: "Her şey yolunda! Son günlerdeki ortalama tansiyonunuz ideal seviyede.",
+            yellowTitle: "Hafif Yüksek",
+            yellowDesc: "Ortalamanız yüksek-normal aralıkta. Lütfen takip etmeye devam edin.",
+            redTitle: "Sürekli Yüksek",
+            redDesc: "Son günlerdeki ortalamanız çok yüksek. Bir doktora görünmeniz önerilir.",
+            trendTitle: "Uyarı: Kritik Trend!",
+            trendDesc: "Ani bir yükseliş tespit edildi.",
+            mildTrendTitle: "Yükseliş Eğilimi",
+            mildTrendDesc: "Tansiyonunuz yüksek-normal aralığa doğru bir yükseliş eğilimi gösteriyor.",
+            goodTrendTitle: "Olumlu Trend",
+            goodTrendDesc: "Tansiyonunuz düşüyor ve optimal aralıkta. Böyle devam edin!",
+            acuteSpikeTitle: "Akut Hipertansiyon",
+            acuteSpikeDesc: "Son ölçümünüz son derece yüksek. Lütfen derhal tıbbi yardım alın.",
+            outlierTitle: "Yüksek Değer",
+            outlierDesc: "Son ölçümünüz ortalamanızdan daha yüksek bir sapma gösteriyor. Gözlemlemeye devam edin."
+        }
     },
     common: {
         unit: "mmHg",

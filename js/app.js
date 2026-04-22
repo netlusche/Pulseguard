@@ -2,13 +2,15 @@ import { createState } from './state.js';
 import { initI18n } from './i18n/index.js';
 import { StorageService } from './services/storage.js';
 import { AuthService } from './services/auth.js';
-import { hasCriticalTrend } from './utils/helper.js';
+import { getDashboardStatus } from './utils/helper.js';
 
 // Components
 import Header from './components/Header.js';
 import InputForm from './components/InputForm.js';
 import ChartView from './components/ChartView.js';
 import HistoryList from './components/HistoryList.js';
+import ExtendedChartView from './components/ExtendedChartView.js';
+import ExtendedHistoryView from './components/ExtendedHistoryView.js';
 import LoginView from './components/LoginView.js';
 import VerifyView from './components/VerifyView.js';
 import AdminDashboard from './components/AdminDashboard.js';
@@ -22,6 +24,8 @@ const App = {
         'input-form': InputForm,
         'chart-view': ChartView,
         'history-list': HistoryList,
+        'extended-chart-view': ExtendedChartView,
+        'extended-history-view': ExtendedHistoryView,
         'login-view': LoginView,
         'verify-view': VerifyView,
         'admin-dashboard': AdminDashboard,
@@ -46,7 +50,7 @@ const App = {
             verifyToken.value = token;
         }
 
-        const trendWarning = computed(() => hasCriticalTrend(state.measurements));
+        const dashboardStatus = computed(() => getDashboardStatus(state.measurements));
 
         const loadData = async () => {
             if (!state.currentUser) return;
@@ -84,7 +88,7 @@ const App = {
         });
 
         return { 
-            state, i18n, storage, authService, trendWarning, 
+            state, i18n, storage, authService, dashboardStatus, 
             handleLogout, toggleView, currentView, verifyAction, verifyToken 
         };
     },
@@ -109,22 +113,26 @@ const App = {
                 
                 <template v-else>
                     <transition name="fade">
-                        <div v-if="trendWarning" class="alert alert-danger mt-4">
-                            <span style="font-size: 1.5rem">⚠️</span>
+                        <div v-if="dashboardStatus" class="alert mt-4" :class="'alert-' + dashboardStatus.type">
+                            <span style="font-size: 1.5rem; margin-top: 0.125rem;">{{ dashboardStatus.icon }}</span>
                             <div>
-                                <p style="font-weight: 700">{{ i18n.t('dashboard.trendWarningTitle') }}</p>
-                                <p style="font-size: 0.875rem">{{ i18n.t('dashboard.trendWarningDesc') }}</p>
+                                <p style="font-weight: 700">{{ i18n.t(dashboardStatus.titleKey) }}</p>
+                                <p style="font-size: 0.875rem">{{ i18n.t(dashboardStatus.descKey) }}</p>
                             </div>
                         </div>
                     </transition>
 
-                    <div class="dashboard-grid mt-4">
-                        <aside>
+                    <div class="dashboard-grid mt-4" :class="{'dashboard-grid-full': currentView !== 'dashboard'}">
+                        <aside v-if="currentView === 'dashboard'">
                             <input-form :state="state" :i18n="i18n" :storage="storage" />
                         </aside>
                         <main class="space-y-8" style="display: flex; flex-direction: column; gap: 2rem">
-                            <chart-view :state="state" :i18n="i18n" />
-                            <history-list :state="state" :i18n="i18n" :storage="storage" />
+                            <extended-chart-view v-if="currentView === 'extended-charts'" :state="state" :i18n="i18n" @back="currentView = 'dashboard'" />
+                            <extended-history-view v-else-if="currentView === 'extended-history'" :state="state" :i18n="i18n" :storage="storage" @back="currentView = 'dashboard'" />
+                            <template v-else>
+                                <chart-view :state="state" :i18n="i18n" @expand="currentView = 'extended-charts'" />
+                                <history-list :state="state" :i18n="i18n" :storage="storage" @expand="currentView = 'extended-history'" />
+                            </template>
                         </main>
                     </div>
                 </template>

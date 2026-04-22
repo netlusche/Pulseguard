@@ -25,7 +25,30 @@ export default {
         noData: "Noch keine Daten vorhanden.",
         deleteConfirm: "Eintrag wirklich löschen?",
         trendWarningTitle: "Achtung: Kritischer Trend!",
-        trendWarningDesc: "Der Durchschnitt deiner letzten 3 Messungen zeigt steigenden Blutdruck."
+        trendWarningDesc: "Der Durchschnitt deiner letzten 3 Messungen zeigt steigenden Blutdruck.",
+        expandView: "Ansicht erweitern",
+        from: "Von",
+        to: "Bis",
+        selectPeriod: "Zeitraum wählen",
+        backToDashboard: "Zurück zum Dashboard",
+        status: {
+            greenTitle: "Optimal",
+            greenDesc: "Alles im grünen Bereich! Dein durchschnittlicher Blutdruck der letzten Tage ist optimal.",
+            yellowTitle: "Leicht erhöht",
+            yellowDesc: "Dein Durchschnitt liegt im hoch-normalen Bereich. Bitte weiter beobachten.",
+            redTitle: "Dauerhaft zu hoch",
+            redDesc: "Der Durchschnitt der letzten Tage ist zu hoch. Ein Arztbesuch wird empfohlen.",
+            trendTitle: "Achtung: Kritischer Trend!",
+            trendDesc: "Ein plötzlicher Anstieg wurde erkannt.",
+            mildTrendTitle: "Steigende Tendenz",
+            mildTrendDesc: "Dein Blutdruck zeigt einen Aufwärtstrend in den hoch-normalen Bereich.",
+            goodTrendTitle: "Positiver Trend",
+            goodTrendDesc: "Dein Blutdruck sinkt und ist im optimalen Bereich. Weiter so!",
+            acuteSpikeTitle: "Akuter Blutdruckanstieg",
+            acuteSpikeDesc: "Dein letzter Messwert ist extrem hoch. Bitte suche umgehend ärztlichen Rat.",
+            outlierTitle: "Erhöhter Einzelwert",
+            outlierDesc: "Dein letzter Messwert ist ein Ausreißer nach oben. Bitte behalte das im Auge."
+        }
     },
     common: {
         unit: "mmHg",

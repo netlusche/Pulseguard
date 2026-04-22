@@ -1,0 +1,20 @@
+# Deny direct access to all files in the API directory
+<IfModule mod_authz_core.c>
+    # Apache 2.4
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    # Apache 2.2
+    Order deny,allow
+    Deny from all
+</IfModule>
+
+# Allow access ONLY to the main API endpoint (index.php)
+<Files "index.php">
+    <IfModule mod_authz_core.c>
+        Require all granted
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Allow from all
+    </IfModule>
+</Files>

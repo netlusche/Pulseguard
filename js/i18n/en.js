@@ -25,7 +25,30 @@ export default {
         noData: "No data available yet.",
         deleteConfirm: "Delete this entry?",
         trendWarningTitle: "Warning: Critical Trend!",
-        trendWarningDesc: "The average of your last 3 measurements shows rising blood pressure."
+        trendWarningDesc: "The average of your last 3 measurements shows rising blood pressure.",
+        expandView: "Expand view",
+        from: "From",
+        to: "To",
+        selectPeriod: "Select period",
+        backToDashboard: "Back to Dashboard",
+        status: {
+            greenTitle: "Optimal",
+            greenDesc: "Everything is in the green zone! Your average blood pressure over the last few days is optimal.",
+            yellowTitle: "Slightly Elevated",
+            yellowDesc: "Your average is in the high-normal range. Please keep an eye on it.",
+            redTitle: "Consistently High",
+            redDesc: "Your average over the last few days is too high. A doctor's visit is recommended.",
+            trendTitle: "Warning: Critical Trend!",
+            trendDesc: "A sudden increase was detected.",
+            mildTrendTitle: "Rising Tendency",
+            mildTrendDesc: "Your blood pressure is showing an upward trend into the high-normal range.",
+            goodTrendTitle: "Positive Trend",
+            goodTrendDesc: "Your blood pressure is decreasing and is in the optimal range. Keep it up!",
+            acuteSpikeTitle: "Acute Hypertension",
+            acuteSpikeDesc: "Your latest measurement is extremely high. Please seek medical advice immediately.",
+            outlierTitle: "Elevated Value",
+            outlierDesc: "Your latest measurement is unusually high compared to your average. Keep an eye on it."
+        }
     },
     common: {
         unit: "mmHg",

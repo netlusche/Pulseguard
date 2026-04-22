@@ -1,0 +1,91 @@
+export default {
+    app: {
+        title: "PulseGuard",
+        subtitle: "متتبع ضغط الدم الشخصي الخاص بك",
+        exportCsv: "تصدير CSV"
+    },
+    form: {
+        title: "قياس جديد",
+        sys: "الانقباضي",
+        dia: "الانبساطي",
+        pulse: "النبض (BPM)",
+        notes: "ملاحظات",
+        notesPlaceholder: "مثلاً بعد الرياضة...",
+        timestamp: "التاريخ والوقت",
+        save: "حفظ",
+        feedback: {
+            optimal: "ضغط الدم مثالي",
+            normal: "طبيعي مرتفع (انتباه)",
+            high: "تحذير: مرتفع جداً!"
+        }
+    },
+    dashboard: {
+        chartTitle: "الاتجاهات (آخر 14 يوم)",
+        historyTitle: "المدخلات الأخيرة",
+        noData: "لا توجد بيانات حتى الآن.",
+        deleteConfirm: "هل تريد حذف هذا الإدخال؟",
+        trendWarningTitle: "تحذير: اتجاه حرج!",
+        trendWarningDesc: "متوسط آخر 3 قياسات يظهر ارتفاعاً في ضغط الدم."
+    },
+    common: {
+        unit: "mmHg",
+        bpm: "BPM"
+    },
+    auth: {
+        loginTitle: "تسجيل الدخول",
+        registerTitle: "إنشاء حساب",
+        email: "البريد الإلكتروني",
+        password: "كلمة المرور",
+        passwordConfirm: "تأكيد كلمة المرور",
+        loginBtn: "تسجيل الدخول",
+        registerBtn: "إنشاء حساب",
+        logoutBtn: "تسجيل الخروج",
+        switchToRegister: "ليس لديك حساب؟ سجل هنا",
+        switchToLogin: "مسجل بالفعل؟ سجل الدخول هنا",
+                error: "خطأ في حفظ الملف الشخصي.",
+        emailPending: "تم تحديث الملف الشخصي. يرجى التحقق من بريدك الجديد (راجع mail.log).",
+                passwordMismatch: "كلمات المرور غير متطابقة",
+        registerSuccess: "تم التسجيل بنجاح. يرجى تسجيل الدخول.",
+        twoFactorTitle: "مصادقة ثنائية",
+        twoFactorLabel: "رمز من 6 أرقام (راجع mail.log)",
+        verifyCodeBtn: "التحقق من الرمز",
+        backToLoginBtn: "العودة لتسجيل الدخول",
+        codeSent: "تم إرسال الرمز إلى بريدك (راجع mail.log).",
+        registerSuccessMail: "تم التسجيل. راجع mail.log لرابط التحقق.",
+        verifyTitle: "التحقق من الحساب",
+        verifying: "جاري التحقق من الرابط...",
+        verifySuccess: "نجاح!",
+        verifyFailed: "فشل التحقق",
+        verifyContinueBtn: "المتابعة لتسجيل الدخول",
+        verifyGoLoginBtn: "الذهاب لتسجيل الدخول"
+    },
+    admin: {
+        title: "لوحة تحكم المسؤول",
+        openAdmin: "منطقة المسؤول",
+        backToApp: "العودة للتطبيق",
+        id: "المعرف",
+        email: "البريد الإلكتروني",
+        role: "الدور",
+        registered: "مسجل في",
+        actions: "الإجراءات",
+        delete: "حذف",
+        promote: "ترقية لمسؤول",
+        confirmDelete: "هل حقاً تريد حذف هذا المستخدم؟",
+                confirmPromote: "هل تريد حقاً ترقية هذا المستخدم لمدير؟",
+        globalSettings: "الإعدادات العامة",
+        strictPasswordTitle: "سياسة كلمات مرور صارمة",
+        strictPasswordDesc: "يتطلب 12+ حرفاً، أحرف كبيرة وصغيرة، أرقام، ورموز خاصة.",
+        twoFactorTitle: "المصادقة الثنائية (2FA)",
+        twoFactorDesc: "فرض المصادقة الثنائية عبر البريد الإلكتروني للجميع.",
+        settingsSaved: "تم حفظ الإعدادات بنجاح."
+    },
+    profile: {
+        title: "ملفي الشخصي",
+        changeEmail: "عنوان البريد الإلكتروني",
+        changePassword: "كلمة مرور جديدة (اختياري)",
+        currentPassword: "كلمة المرور الحالية (مطلوب)",
+        save: "حفظ الملف الشخصي",
+        success: "تم تحديث الملف الشخصي بنجاح.",
+        error: "خطأ في حفظ الملف الشخصي."
+    }
+};

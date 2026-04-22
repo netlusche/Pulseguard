@@ -1,0 +1,91 @@
+export default {
+    app: {
+        title: "PulseGuard",
+        subtitle: "Dein persönlicher Blutdruck-Tracker",
+        exportCsv: "CSV Exportieren"
+    },
+    form: {
+        title: "Neue Messung",
+        sys: "Systole",
+        dia: "Diastole",
+        pulse: "Puls (BPM)",
+        notes: "Bemerkungen",
+        notesPlaceholder: "z.B. nach dem Sport...",
+        timestamp: "Datum & Uhrzeit",
+        save: "Speichern",
+        feedback: {
+            optimal: "Blutdruck ist optimal",
+            normal: "Hoch-Normal (Achtung)",
+            high: "Warnung: Zu hoch!"
+        }
+    },
+    dashboard: {
+        chartTitle: "Verlauf (Letzte 14 Tage)",
+        historyTitle: "Letzte Einträge",
+        noData: "Noch keine Daten vorhanden.",
+        deleteConfirm: "Eintrag wirklich löschen?",
+        trendWarningTitle: "Achtung: Kritischer Trend!",
+        trendWarningDesc: "Der Durchschnitt deiner letzten 3 Messungen zeigt steigenden Blutdruck."
+    },
+    common: {
+        unit: "mmHg",
+        bpm: "BPM"
+    },
+    auth: {
+        loginTitle: "Anmelden",
+        registerTitle: "Registrieren",
+        email: "E-Mail",
+        password: "Passwort",
+        passwordConfirm: "Passwort bestätigen",
+        loginBtn: "Einloggen",
+        registerBtn: "Account erstellen",
+        logoutBtn: "Abmelden",
+        switchToRegister: "Noch keinen Account? Hier registrieren",
+        switchToLogin: "Bereits registriert? Hier einloggen",
+                error: "Fehler beim Speichern des Profils.",
+        emailPending: "Profil aktualisiert. Bitte prüfe die mail.log, um die neue E-Mail zu verifizieren.",
+                passwordMismatch: "Passwörter stimmen nicht überein",
+        registerSuccess: "Registrierung erfolgreich. Bitte einloggen.",
+        twoFactorTitle: "2-Faktor Authentifizierung",
+        twoFactorLabel: "6-stelliger Code (siehe mail.log)",
+        verifyCodeBtn: "Code bestätigen",
+        backToLoginBtn: "Zurück zum Login",
+        codeSent: "Code wurde per E-Mail gesendet (siehe mail.log).",
+        registerSuccessMail: "Registrierung erfolgreich. Bitte prüfe die mail.log für den Bestätigungslink.",
+        verifyTitle: "Account-Verifizierung",
+        verifying: "Link wird verifiziert...",
+        verifySuccess: "Erfolg!",
+        verifyFailed: "Verifizierung fehlgeschlagen",
+        verifyContinueBtn: "Weiter zum Login",
+        verifyGoLoginBtn: "Zum Login"
+    },
+    admin: {
+        title: "Admin Dashboard",
+        openAdmin: "Admin-Bereich",
+        backToApp: "Zurück zur App",
+        id: "ID",
+        email: "E-Mail",
+        role: "Rolle",
+        registered: "Registriert am",
+        actions: "Aktionen",
+        delete: "Löschen",
+        promote: "Zum Admin machen",
+        confirmDelete: "Benutzer wirklich löschen?",
+                confirmPromote: "Benutzer wirklich zum Admin machen?",
+        globalSettings: "Globale Einstellungen",
+        strictPasswordTitle: "Strikte Passwort-Richtlinie",
+        strictPasswordDesc: "Erfordert 12+ Zeichen, Groß-/Kleinschreibung, Zahlen, Sonderzeichen.",
+        twoFactorTitle: "2-Faktor Authentifizierung (2FA)",
+        twoFactorDesc: "E-Mail-basierte 2FA für alle Benutzer beim Login erzwingen.",
+        settingsSaved: "Einstellungen erfolgreich gespeichert."
+    },
+    profile: {
+        title: "Mein Profil",
+        changeEmail: "E-Mail-Adresse",
+        changePassword: "Neues Passwort (optional)",
+        currentPassword: "Aktuelles Passwort (Pflichtfeld)",
+        save: "Profil speichern",
+        success: "Profil erfolgreich aktualisiert.",
+        error: "Fehler beim Speichern des Profils."
+    }
+};

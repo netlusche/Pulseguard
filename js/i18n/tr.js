@@ -1,0 +1,91 @@
+export default {
+    app: {
+        title: "PulseGuard",
+        subtitle: "Kişisel tansiyon takipçiniz",
+        exportCsv: "CSV Dışa Aktar"
+    },
+    form: {
+        title: "Yeni Ölçüm",
+        sys: "Sistolik",
+        dia: "Diyastolik",
+        pulse: "Nabız (BPM)",
+        notes: "Notlar",
+        notesPlaceholder: "örn. spordan sonra...",
+        timestamp: "Tarih & Saat",
+        save: "Kaydet",
+        feedback: {
+            optimal: "Tansiyon ideal",
+            normal: "Yüksek-Normal (Dikkat)",
+            high: "Uyarı: Çok yüksek!"
+        }
+    },
+    dashboard: {
+        chartTitle: "Trendler (Son 14 Gün)",
+        historyTitle: "Son Kayıtlar",
+        noData: "Henüz veri yok.",
+        deleteConfirm: "Bu kaydı silmek istiyor musunuz?",
+        trendWarningTitle: "Uyarı: Kritik Trend!",
+        trendWarningDesc: "Son 3 ölçümünüzün ortalaması tansiyonun yükseldiğini gösteriyor."
+    },
+    common: {
+        unit: "mmHg",
+        bpm: "BPM"
+    },
+    auth: {
+        loginTitle: "Giriş Yap",
+        registerTitle: "Kayıt Ol",
+        email: "E-posta",
+        password: "Şifre",
+        passwordConfirm: "Şifreyi Onayla",
+        loginBtn: "Oturum Aç",
+        registerBtn: "Hesap Oluştur",
+        logoutBtn: "Çıkış Yap",
+        switchToRegister: "Hesabınız yok mu? Buradan kayıt olun",
+        switchToLogin: "Zaten kayıtlı mısınız? Buradan giriş yapın",
+                error: "Profil kaydedilirken hata oluştu.",
+        emailPending: "Profil güncellendi. Lütfen yeni e-postanızı doğrulayın (mail.log'a bakın).",
+                passwordMismatch: "Şifreler eşleşmiyor",
+        registerSuccess: "Kayıt başarılı. Lütfen giriş yapın.",
+        twoFactorTitle: "İki Faktörlü Doğrulama",
+        twoFactorLabel: "6 haneli kod (mail.log'a bakın)",
+        verifyCodeBtn: "Kodu Doğrula",
+        backToLoginBtn: "Girişe Dön",
+        codeSent: "Kod e-postanıza gönderildi (mail.log'a bakın).",
+        registerSuccessMail: "Kayıt başarılı. Doğrulama bağlantısı için mail.log'u kontrol edin.",
+        verifyTitle: "Hesap Doğrulama",
+        verifying: "Bağlantınız doğrulanıyor...",
+        verifySuccess: "Başarılı!",
+        verifyFailed: "Doğrulama Başarısız",
+        verifyContinueBtn: "Girişe Devam Et",
+        verifyGoLoginBtn: "Girişe Git"
+    },
+    admin: {
+        title: "Yönetici Paneli",
+        openAdmin: "Yönetici Alanı",
+        backToApp: "Uygulamaya Dön",
+        id: "ID",
+        email: "E-posta",
+        role: "Rol",
+        registered: "Kayıt Tarihi",
+        actions: "İşlemler",
+        delete: "Sil",
+        promote: "Yönetici Yap",
+        confirmDelete: "Bu kullanıcıyı gerçekten silmek istiyor musunuz?",
+                confirmPromote: "Bu kullanıcıyı admin yapmak istiyor musunuz?",
+        globalSettings: "Genel Ayarlar",
+        strictPasswordTitle: "Sıkı Şifre Politikası",
+        strictPasswordDesc: "12+ karakter, büyük/küçük harf, sayı, özel karakter gerektirir.",
+        twoFactorTitle: "İki Faktörlü Doğrulama (2FA)",
+        twoFactorDesc: "Tüm kullanıcılar için e-posta tabanlı 2FA'yı zorunlu kıl.",
+        settingsSaved: "Ayarlar başarıyla kaydedildi."
+    },
+    profile: {
+        title: "Profilim",
+        changeEmail: "E-posta Adresi",
+        changePassword: "Yeni Şifre (isteğe bağlı)",
+        currentPassword: "Mevcut Şifre (gerekli)",
+        save: "Profili Kaydet",
+        success: "Profil başarıyla güncellendi.",
+        error: "Profil kaydedilirken hata oluştu."
+    }
+};

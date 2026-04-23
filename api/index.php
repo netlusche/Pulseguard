@@ -140,7 +140,7 @@ try {
         }
         $hash = password_hash($input['password'], PASSWORD_DEFAULT);
         $token = bin2hex(random_bytes(16));
-        $stmt = $db->prepare("INSERT INTO users (email, password_hash, role, email_verified, verification_token) VALUES (?, ?, 'user', 0, ?)");
+        $stmt = $db->prepare("INSERT INTO users (email, password_hash, `role`, email_verified, verification_token) VALUES (?, ?, 'user', 0, ?)");
         $stmt->execute([$input['email'], $hash, $token]);
         
         $basePath = dirname(dirname($_SERVER['PHP_SELF']));
@@ -263,7 +263,7 @@ try {
 
     if ($action === 'users' && $user['role'] === 'admin') {
         if ($method === 'GET') {
-            $stmt = $db->query("SELECT id, email, role, created_at FROM users");
+            $stmt = $db->query("SELECT id, email, `role`, created_at FROM users");
             echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         } elseif ($method === 'DELETE') {
             $id = $_GET['id'] ?? null;
@@ -282,7 +282,7 @@ try {
             
             if ($id) {
                 if ($id == $user['id'] && $newRole === 'user') {
-                    $stmt = $db->query("SELECT COUNT(*) FROM users WHERE role = 'admin'");
+                    $stmt = $db->query("SELECT COUNT(*) FROM users WHERE `role` = 'admin'");
                     $adminCount = $stmt->fetchColumn();
                     if ($adminCount <= 1) {
                         http_response_code(400);
@@ -291,7 +291,7 @@ try {
                     }
                 }
                 
-                $stmt = $db->prepare("UPDATE users SET role = ? WHERE id = ?");
+                $stmt = $db->prepare("UPDATE users SET `role` = ? WHERE id = ?");
                 $stmt->execute([$newRole, $id]);
             }
             echo json_encode(['success' => true]);

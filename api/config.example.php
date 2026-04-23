@@ -33,7 +33,7 @@ function getDbConnection() {
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 email TEXT UNIQUE NOT NULL,
                 password_hash TEXT NOT NULL,
-                role TEXT NOT NULL DEFAULT 'user',
+                `role` TEXT NOT NULL DEFAULT 'user',
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )");
 
@@ -65,12 +65,12 @@ function getDbConnection() {
 
             // Migration: Create test user
             $hash = password_hash('password', PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, role) SELECT 'test@pulseguard.de', ?, 'user' WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'test@pulseguard.de')");
+            $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, `role`) SELECT 'test@pulseguard.de', ?, 'user' WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'test@pulseguard.de')");
             $stmt->execute([$hash]);
 
             // Migration: Create admin user
             $adminHash = password_hash('admin', PASSWORD_DEFAULT);
-            $stmtAdmin = $pdo->prepare("INSERT INTO users (email, password_hash, role) SELECT 'admin@pulseguard.de', ?, 'admin' WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'admin@pulseguard.de')");
+            $stmtAdmin = $pdo->prepare("INSERT INTO users (email, password_hash, `role`) SELECT 'admin@pulseguard.de', ?, 'admin' WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'admin@pulseguard.de')");
             $stmtAdmin->execute([$adminHash]);
             
             // Migration: Set existing test users as verified

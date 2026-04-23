@@ -26,7 +26,7 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY $autoInc,
     email $varchar UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    role $varchar NOT NULL DEFAULT 'user',
+    `role` $varchar NOT NULL DEFAULT 'user',
     email_verified INTEGER DEFAULT 0,
     verification_token $varchar,
     pending_email $varchar,
@@ -79,7 +79,7 @@ $stmt->execute([$adminEmail]);
 $adminExists = $stmt->fetchColumn();
 
 if (!$adminExists) {
-    $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, role, email_verified) VALUES (?, ?, 'admin', 1)");
+    $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, `role`, email_verified) VALUES (?, ?, 'admin', 1)");
     $stmt->execute([$adminEmail, $adminHash]);
     echo "[OK] Admin user created: $adminEmail\n";
 } else {
@@ -98,7 +98,7 @@ $stmt->execute([$testEmail]);
 $testId = $stmt->fetchColumn();
 
 if (!$testId) {
-    $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, role, email_verified) VALUES (?, ?, 'user', 1)");
+    $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, `role`, email_verified) VALUES (?, ?, 'user', 1)");
     $stmt->execute([$testEmail, $testHash]);
     $testId = $pdo->lastInsertId();
     echo "[OK] Test user created: $testEmail\n";

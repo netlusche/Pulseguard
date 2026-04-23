@@ -43,7 +43,7 @@ foreach ($users as $u) {
     $userId = $stmt->fetchColumn();
 
     if (!$userId) {
-        $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, role, email_verified) VALUES (?, ?, 'user', 1)");
+        $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, `role`, email_verified) VALUES (?, ?, 'user', 1)");
         $stmt->execute([$u['email'], $password]);
         $userId = $pdo->lastInsertId();
     } else {

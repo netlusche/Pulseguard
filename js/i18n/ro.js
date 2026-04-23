@@ -20,7 +20,8 @@ export default {
         }
     },
     dashboard: {
-        chartTitle: "Tendințe (Ultimele 14 zile)",
+        chartTitle: 'Tendințe (Ultimele 14 zile)',
+        extendedChartTitle: 'Tendințe',
         historyTitle: "Înregistrări recente",
         noData: "Nu există date încă.",
         deleteConfirm: "Ștergeți această înregistrare?",

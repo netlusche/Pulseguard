@@ -20,7 +20,8 @@ export default {
         }
     },
     dashboard: {
-        chartTitle: "Тренды (Последние 14 дней)",
+        chartTitle: 'Тренды (Последние 14 дней)',
+        extendedChartTitle: 'Тренды',
         historyTitle: "Последние записи",
         noData: "Данных пока нет.",
         deleteConfirm: "Удалить эту запись?",

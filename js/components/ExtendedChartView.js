@@ -3,7 +3,7 @@ export default {
     template: `
         <div class="card">
             <div class="flex-between mb-2">
-                <h2 class="card-title" style="margin-bottom: 0;">{{ i18n.t('dashboard.chartTitle') }}</h2>
+                <h2 class="card-title" style="margin-bottom: 0;">{{ i18n.t('dashboard.extendedChartTitle') }}</h2>
                 <button @click="$emit('back')" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">
                     &larr; {{ i18n.t('dashboard.backToDashboard') }}
                 </button>

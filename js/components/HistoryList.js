@@ -20,7 +20,7 @@ export default {
                     
                     <div style="display: flex; align-items: center; gap: 1rem">
                         <!-- Short Notes Preview / Tooltip -->
-                        <div v-if="entry.notes" class="tooltip" style="max-width: 200px">
+                        <div v-if="entry.notes" class="tooltip" tabindex="0" style="max-width: 200px">
                             <span class="text-muted" style="font-size: 0.8rem; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; max-width: 150px">
                                 "{{ entry.notes }}"
                             </span>

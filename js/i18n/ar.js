@@ -20,7 +20,8 @@ export default {
         }
     },
     dashboard: {
-        chartTitle: "الاتجاهات (آخر 14 يوم)",
+        chartTitle: 'الاتجاهات (آخر 14 يوم)',
+        extendedChartTitle: 'الاتجاهات',
         historyTitle: "المدخلات الأخيرة",
         noData: "لا توجد بيانات حتى الآن.",
         deleteConfirm: "هل تريد حذف هذا الإدخال؟",

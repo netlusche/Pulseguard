@@ -20,7 +20,8 @@ export default {
         }
     },
     dashboard: {
-        chartTitle: "Trends (Last 14 Days)",
+        chartTitle: 'Trends (Last 14 Days)',
+        extendedChartTitle: 'Trends',
         historyTitle: "Recent Entries",
         noData: "No data available yet.",
         deleteConfirm: "Delete this entry?",

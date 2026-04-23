@@ -419,7 +419,9 @@ input:focus, textarea:focus, select:focus {
     pointer-events: none;
 }
 
-.tooltip:hover .tooltip-text {
+.tooltip:hover .tooltip-text,
+.tooltip:active .tooltip-text,
+.tooltip:focus .tooltip-text {
     visibility: visible;
     opacity: 1;
     transform: translateY(-5px);

@@ -20,7 +20,8 @@ export default {
         }
     },
     dashboard: {
-        chartTitle: "Trendy (Ostatnie 14 dni)",
+        chartTitle: 'Trendy (Ostatnie 14 dni)',
+        extendedChartTitle: 'Trendy',
         historyTitle: "Ostatnie wpisy",
         noData: "Brak danych.",
         deleteConfirm: "Usunąć ten wpis?",

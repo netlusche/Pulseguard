@@ -20,7 +20,8 @@ export default {
         }
     },
     dashboard: {
-        chartTitle: "Trendler (Son 14 Gün)",
+        chartTitle: 'Trendler (Son 14 Gün)',
+        extendedChartTitle: 'Trendler',
         historyTitle: "Son Kayıtlar",
         noData: "Henüz veri yok.",
         deleteConfirm: "Bu kaydı silmek istiyor musunuz?",

@@ -20,7 +20,8 @@ export default {
         }
     },
     dashboard: {
-        chartTitle: "Verlauf (Letzte 14 Tage)",
+        chartTitle: 'Verlauf (Letzte 14 Tage)',
+        extendedChartTitle: 'Verlauf',
         historyTitle: "Letzte Einträge",
         noData: "Noch keine Daten vorhanden.",
         deleteConfirm: "Eintrag wirklich löschen?",

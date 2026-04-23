@@ -1,3 +1,6 @@
+# Pass Authorization header to PHP (Required for FastCGI/FPM on Strato)
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+
 # Deny direct access to all files in the API directory
 <IfModule mod_authz_core.c>
     # Apache 2.4

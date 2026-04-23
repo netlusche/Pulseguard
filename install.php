@@ -34,6 +34,13 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )");
 
+// Migrations (Catch errors if columns already exist in old DBs)
+try { $pdo->exec("ALTER TABLE users ADD COLUMN email_verified INTEGER DEFAULT 0"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE users ADD COLUMN verification_token $varchar"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE users ADD COLUMN pending_email $varchar"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE users ADD COLUMN two_factor_code $varchar"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE users ADD COLUMN created_at DATETIME DEFAULT CURRENT_TIMESTAMP"); } catch (PDOException $e) {}
+
 $pdo->exec("CREATE TABLE IF NOT EXISTS settings (
     `key` $varchar PRIMARY KEY,
     value TEXT NOT NULL

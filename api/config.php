@@ -40,6 +40,7 @@ function getDbConnection() {
             try { $pdo->exec("ALTER TABLE users ADD COLUMN verification_token TEXT"); } catch (PDOException $e) {}
             try { $pdo->exec("ALTER TABLE users ADD COLUMN pending_email TEXT"); } catch (PDOException $e) {}
             try { $pdo->exec("ALTER TABLE users ADD COLUMN two_factor_code TEXT"); } catch (PDOException $e) {}
+            try { $pdo->exec("ALTER TABLE users ADD COLUMN created_at DATETIME DEFAULT CURRENT_TIMESTAMP"); } catch (PDOException $e) {}
 
             $pdo->exec("CREATE TABLE IF NOT EXISTS settings (
                 key TEXT PRIMARY KEY,

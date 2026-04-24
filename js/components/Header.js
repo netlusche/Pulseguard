@@ -2,12 +2,15 @@ import { exportToCSV } from '../utils/helper.js';
 
 export default {
     props: ['state', 'i18n', 'currentView'],
-    emits: ['toggle-view', 'logout'],
+    emits: ['toggle-view', 'logout', 'set-view'],
     template: `
         <header class="flex-between">
-            <div>
-                <h1>{{ i18n.t('app.title') }}</h1>
-                <p class="text-muted">{{ i18n.t('app.subtitle') }}</p>
+            <div @click="$emit('set-view', 'dashboard')" style="cursor: pointer; display: flex; align-items: center; gap: 0.75rem;">
+                <img src="./img/logo.png" alt="PulseGuard Logo" style="height: 48px; width: auto; object-fit: contain;">
+                <div>
+                    <h1 style="margin-bottom: 0;">{{ i18n.t('app.title') }}</h1>
+                    <p class="text-muted" style="margin-bottom: 0;">{{ i18n.t('app.subtitle') }}</p>
+                </div>
             </div>
             <div class="header-actions">
                 <div class="lang-switcher-container">

@@ -99,7 +99,7 @@ const App = {
     },
     template: `
         <div class="app-container">
-            <app-header :state="state" :i18n="i18n" :currentView="currentView" @logout="handleLogout" @toggle-view="toggleView" />
+            <app-header :state="state" :i18n="i18n" :currentView="currentView" @logout="handleLogout" @toggle-view="toggleView" @set-view="setView" />
             
             <verify-view v-if="verifyToken" 
                 :state="state" 

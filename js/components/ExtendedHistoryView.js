@@ -13,11 +13,11 @@ export default {
             
             <div class="form-grid-2" style="margin-bottom: 1.5rem; background: hsl(var(--muted)); padding: 1rem; border-radius: var(--radius);">
                 <div class="form-group">
-                    <label class="form-label">{{ i18n.t('dashboard.filterFrom') }}</label>
+                    <label class="form-label">{{ i18n.t('dashboard.from') }}</label>
                     <input type="date" class="form-input" v-model="filterFrom" :max="filterTo || undefined">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">{{ i18n.t('dashboard.filterTo') }}</label>
+                    <label class="form-label">{{ i18n.t('dashboard.to') }}</label>
                     <input type="date" class="form-input" v-model="filterTo" :min="filterFrom || undefined">
                 </div>
             </div>

@@ -10,13 +10,13 @@ export default {
             </div>
             
             <div class="form-grid-2" style="margin-bottom: 1.5rem; background: hsl(var(--muted)); padding: 1rem; border-radius: var(--radius);">
-                <div>
-                    <label>{{ i18n.t('dashboard.from') }}</label>
-                    <input type="date" v-model="fromDate" @change="updateChart">
+                <div class="form-group">
+                    <label class="form-label">{{ i18n.t('dashboard.from') }}</label>
+                    <input type="date" class="form-input" v-model="fromDate" @change="updateChart">
                 </div>
-                <div>
-                    <label>{{ i18n.t('dashboard.to') }}</label>
-                    <input type="date" v-model="toDate" @change="updateChart">
+                <div class="form-group">
+                    <label class="form-label">{{ i18n.t('dashboard.to') }}</label>
+                    <input type="date" class="form-input" v-model="toDate" @change="updateChart">
                 </div>
             </div>
 

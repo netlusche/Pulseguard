@@ -38,6 +38,10 @@ const App = {
         const authService = new AuthService();
         
         const currentView = ref('dashboard');
+        const setView = (view) => {
+            currentView.value = view;
+            window.scrollTo(0, 0);
+        };
         const verifyAction = ref(null);
         const verifyToken = ref(null);
 
@@ -73,6 +77,7 @@ const App = {
 
         const toggleView = (viewName) => {
             currentView.value = currentView.value === viewName ? 'dashboard' : viewName;
+            window.scrollTo(0, 0);
         };
 
         onMounted(() => {
@@ -89,7 +94,7 @@ const App = {
 
         return { 
             state, i18n, storage, authService, dashboardStatus, 
-            handleLogout, toggleView, currentView, verifyAction, verifyToken 
+            handleLogout, toggleView, setView, currentView, verifyAction, verifyToken 
         };
     },
     template: `
@@ -127,11 +132,11 @@ const App = {
                             <input-form :state="state" :i18n="i18n" :storage="storage" />
                         </aside>
                         <main class="space-y-8" style="display: flex; flex-direction: column; gap: 2rem">
-                            <extended-chart-view v-if="currentView === 'extended-charts'" :state="state" :i18n="i18n" @back="currentView = 'dashboard'" />
-                            <extended-history-view v-else-if="currentView === 'extended-history'" :state="state" :i18n="i18n" :storage="storage" @back="currentView = 'dashboard'" />
+                            <extended-chart-view v-if="currentView === 'extended-charts'" :state="state" :i18n="i18n" @back="setView('dashboard')" />
+                            <extended-history-view v-else-if="currentView === 'extended-history'" :state="state" :i18n="i18n" :storage="storage" @back="setView('dashboard')" />
                             <template v-else>
-                                <chart-view :state="state" :i18n="i18n" @expand="currentView = 'extended-charts'" />
-                                <history-list :state="state" :i18n="i18n" :storage="storage" @expand="currentView = 'extended-history'" />
+                                <chart-view :state="state" :i18n="i18n" @expand="setView('extended-charts')" />
+                                <history-list :state="state" :i18n="i18n" :storage="storage" @expand="setView('extended-history')" />
                             </template>
                         </main>
                     </div>

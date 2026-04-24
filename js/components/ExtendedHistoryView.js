@@ -62,8 +62,13 @@ export default {
     `,
     setup(props) {
         const Vue = window.Vue;
-        const filterFrom = Vue.ref('');
-        const filterTo = Vue.ref('');
+        
+        const today = new Date();
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(today.getDate() - 30);
+        
+        const filterFrom = Vue.ref(thirtyDaysAgo.toISOString().split('T')[0]);
+        const filterTo = Vue.ref(today.toISOString().split('T')[0]);
         const expandedNoteId = Vue.ref(null);
 
         const filteredEntries = Vue.computed(() => {

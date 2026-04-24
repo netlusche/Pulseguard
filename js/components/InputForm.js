@@ -34,7 +34,7 @@ export default {
             </form>
 
             <transition name="fade">
-                <div v-if="state.lastFeedback" :class="['alert', 'mt-4', state.lastFeedback.type === 'high' ? 'alert-danger' : 'alert-success']">
+                <div v-if="state.lastFeedback" :class="['alert', 'mt-4', state.lastFeedback.type === 'high' ? 'alert-danger' : (state.lastFeedback.type === 'normal' ? 'alert-warning' : 'alert-success')]">
                     {{ i18n.t('form.feedback.' + state.lastFeedback.type) }}
                 </div>
             </transition>

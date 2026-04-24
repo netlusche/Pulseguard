@@ -3,7 +3,7 @@
  */
 export const getClassification = (sys, dia) => {
     if (sys < 120 && dia < 80) return 'optimal';
-    if (sys < 140 || dia < 90) return 'normal';
+    if (sys < 140 && dia < 90) return 'normal';
     return 'high';
 };
 

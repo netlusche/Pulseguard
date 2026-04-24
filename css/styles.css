@@ -468,6 +468,24 @@ input:focus, textarea:focus, select:focus {
     align-items: center;
     padding: 1rem 0;
     border-bottom: 1px solid hsl(var(--border));
+    gap: 1rem;
+}
+
+.history-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    align-items: flex-start;
+    min-width: 0; /* allows text truncation */
+}
+
+@media (min-width: 768px) {
+    .history-content {
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+    }
 }
 
 .history-item:last-child {

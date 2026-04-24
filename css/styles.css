@@ -427,6 +427,24 @@ input:focus, textarea:focus, select:focus {
     transform: translateY(-5px);
 }
 
+.notes-preview {
+    cursor: pointer;
+    width: 100%;
+}
+
+.notes-preview span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.2s ease;
+}
+
+.notes-preview:focus span,
+.notes-preview:active span {
+    white-space: normal;
+    overflow: visible;
+}
+
 /* i18n Switcher */
 .lang-select {
     appearance: none;

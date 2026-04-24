@@ -33,14 +33,10 @@ export default {
                             <span class="unit" style="margin-right: 0.5rem">{{ i18n.t('common.unit') }}</span>
                             <span class="pulse-tag">{{ entry.pulse }} {{ i18n.t('common.bpm') }}</span>
                         </div>
-                        <div v-if="entry.notes" class="tooltip" tabindex="0" style="flex: 1; min-width: 0; max-width: 100%;">
-                            <span class="text-muted" style="font-size: 0.85rem; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; width: 100%;">
+                        <div v-if="entry.notes" class="notes-preview" tabindex="0" style="width: 100%;">
+                            <span class="text-muted" style="font-size: 0.85rem; font-style: italic; display: block; width: 100%;">
                                 "{{ entry.notes }}"
                             </span>
-                            <div class="tooltip-text">
-                                <strong>{{ i18n.t('form.notes') }}:</strong><br>
-                                <em>"{{ entry.notes }}"</em>
-                            </div>
                         </div>
                     </div>
                     

@@ -400,36 +400,41 @@ input:focus, textarea:focus, select:focus {
 
 .tooltip-text {
     visibility: hidden;
-    width: 200px;
-    background-color: hsl(var(--foreground));
-    color: white;
-    text-align: center;
-    border-radius: 0.5rem;
-    padding: 0.75rem;
-    position: absolute;
-    z-index: 10;
-    bottom: 125%;
+    position: fixed;
+    top: 50%;
     left: 50%;
-    margin-left: -100px;
+    transform: translate(-50%, -40%);
+    width: 90vw;
+    max-width: 400px;
+    background-color: hsl(var(--card));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    z-index: 1000;
     opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
-    font-size: 0.75rem;
-    font-weight: 400;
-    box-shadow: var(--shadow-md);
+    transition: opacity 0.2s, transform 0.2s;
+    font-size: 0.875rem;
+    box-shadow: var(--shadow-lg);
     pointer-events: none;
+    text-align: left;
 }
 
-.tooltip:hover .tooltip-text,
-.tooltip:active .tooltip-text,
-.tooltip:focus .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(-5px);
+/* Modal Backdrop */
+.tooltip-text::before {
+    content: '';
+    position: fixed;
+    top: -100vh; left: -100vw; right: -100vw; bottom: -100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: -1;
 }
 
 .notes-preview {
     cursor: pointer;
     width: 100%;
+    position: static; /* so fixed child positions correctly relative to viewport */
 }
 
 .notes-preview span {
@@ -439,10 +444,12 @@ input:focus, textarea:focus, select:focus {
     transition: all 0.2s ease;
 }
 
-.notes-preview:focus span,
-.notes-preview:active span {
-    white-space: normal;
-    overflow: visible;
+.notes-preview:focus .tooltip-text,
+.notes-preview:active .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: auto;
 }
 
 /* i18n Switcher */

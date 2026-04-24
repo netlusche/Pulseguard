@@ -37,6 +37,10 @@ export default {
                             <span class="text-muted" style="font-size: 0.85rem; font-style: italic; display: block; width: 100%;">
                                 "{{ entry.notes }}"
                             </span>
+                            <div class="tooltip-text">
+                                <strong>{{ i18n.t('form.notes') }}:</strong><br><br>
+                                <em style="white-space: pre-wrap;">"{{ entry.notes }}"</em>
+                            </div>
                         </div>
                     </div>
                     

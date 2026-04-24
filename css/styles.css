@@ -398,58 +398,68 @@ input:focus, textarea:focus, select:focus {
     cursor: help;
 }
 
-.tooltip-text {
-    visibility: hidden;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -40%);
-    width: 90vw;
-    max-width: 400px;
+.notes-popover {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    width: 300px;
+    max-width: 80vw;
     background-color: hsl(var(--card));
     color: hsl(var(--foreground));
     border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
     padding: 1.5rem;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.2s, transform 0.2s;
-    font-size: 0.875rem;
+    z-index: 100;
     box-shadow: var(--shadow-lg);
-    pointer-events: none;
+    font-size: 0.875rem;
     text-align: left;
+    white-space: normal;
+    animation: popoverFadeIn 0.2s ease;
 }
 
-/* Modal Backdrop */
-.tooltip-text::before {
-    content: '';
+@keyframes popoverFadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.popover-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: hsl(var(--muted-foreground));
+    border-radius: 50%;
+}
+.popover-close:hover {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
+}
+
+.popover-backdrop {
     position: fixed;
-    top: -100vh; left: -100vw; right: -100vw; bottom: -100vh;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    z-index: -1;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 99;
 }
 
 .notes-preview {
     cursor: pointer;
     width: 100%;
-    position: static; /* so fixed child positions correctly relative to viewport */
+    position: relative;
 }
 
 .notes-preview span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: all 0.2s ease;
-}
-
-.notes-preview:focus .tooltip-text,
-.notes-preview:active .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-    transform: translate(-50%, -50%);
-    pointer-events: auto;
+    display: block;
+    width: 100%;
 }
 
 /* i18n Switcher */

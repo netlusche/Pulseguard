@@ -12,13 +12,13 @@ export default {
             </div>
             
             <div class="form-grid-2" style="margin-bottom: 1.5rem; background: hsl(var(--muted)); padding: 1rem; border-radius: var(--radius);">
-                <div>
-                    <label>{{ i18n.t('dashboard.from') }}</label>
-                    <input type="date" v-model="fromDate">
+                <div class="form-group">
+                    <label class="form-label">{{ i18n.t('dashboard.filterFrom') }}</label>
+                    <input type="date" class="form-input" v-model="filterFrom" :max="filterTo || undefined">
                 </div>
-                <div>
-                    <label>{{ i18n.t('dashboard.to') }}</label>
-                    <input type="date" v-model="toDate">
+                <div class="form-group">
+                    <label class="form-label">{{ i18n.t('dashboard.filterTo') }}</label>
+                    <input type="date" class="form-input" v-model="filterTo" :min="filterFrom || undefined">
                 </div>
             </div>
 
@@ -33,14 +33,20 @@ export default {
                             <span class="unit" style="margin-right: 0.5rem">{{ i18n.t('common.unit') }}</span>
                             <span class="pulse-tag">{{ entry.pulse }} {{ i18n.t('common.bpm') }}</span>
                         </div>
-                        <div v-if="entry.notes" class="notes-preview" tabindex="0" style="width: 100%;">
-                            <span class="text-muted" style="font-size: 0.85rem; font-style: italic; display: block; width: 100%;">
+                        <div v-if="entry.notes" class="notes-preview">
+                            <span class="text-muted" style="font-size: 0.85rem; font-style: italic;" @click="toggleNote(entry.id)">
                                 "{{ entry.notes }}"
                             </span>
-                            <div class="tooltip-text">
-                                <strong>{{ i18n.t('form.notes') }}:</strong><br><br>
-                                <em style="white-space: pre-wrap;">"{{ entry.notes }}"</em>
+                            
+                            <!-- Popover Overlay -->
+                            <div v-if="expandedNoteId === entry.id" class="notes-popover">
+                                <div class="popover-close" @click.stop="toggleNote(entry.id)">&times;</div>
+                                <strong style="display:block; margin-bottom: 0.5rem;">{{ i18n.t('form.notes') }}:</strong>
+                                <em style="white-space: pre-wrap; font-style: italic;">"{{ entry.notes }}"</em>
                             </div>
+                            
+                            <!-- Invisible Backdrop -->
+                            <div v-if="expandedNoteId === entry.id" class="popover-backdrop" @click.stop="toggleNote(entry.id)"></div>
                         </div>
                     </div>
                     
@@ -56,27 +62,34 @@ export default {
     `,
     setup(props) {
         const Vue = window.Vue;
-        
-        const today = new Date();
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(today.getDate() - 30);
-        
-        const fromDate = Vue.ref(thirtyDaysAgo.toISOString().split('T')[0]);
-        const toDate = Vue.ref(today.toISOString().split('T')[0]);
+        const filterFrom = Vue.ref('');
+        const filterTo = Vue.ref('');
+        const expandedNoteId = Vue.ref(null);
 
         const filteredEntries = Vue.computed(() => {
-            const start = new Date(fromDate.value);
-            start.setHours(0, 0, 0, 0);
-            const end = new Date(toDate.value);
-            end.setHours(23, 59, 59, 999);
-            
-            return [...props.state.measurements]
-                .filter(m => {
-                    const d = new Date(m.timestamp);
-                    return d >= start && d <= end;
-                })
+            let entries = [...props.state.measurements]
                 .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            if (filterFrom.value) {
+                const fromDateObj = new Date(filterFrom.value);
+                fromDateObj.setHours(0,0,0,0);
+                entries = entries.filter(e => new Date(e.timestamp) >= fromDateObj);
+            }
+            if (filterTo.value) {
+                const toDateObj = new Date(filterTo.value);
+                toDateObj.setHours(23,59,59,999);
+                entries = entries.filter(e => new Date(e.timestamp) <= toDateObj);
+            }
+            return entries;
         });
+
+        const toggleNote = (id) => {
+            if (expandedNoteId.value === id) {
+                expandedNoteId.value = null;
+            } else {
+                expandedNoteId.value = id;
+            }
+        };
 
         const handleDelete = async (id) => {
             if (confirm(props.i18n.t('dashboard.deleteConfirm'))) {
@@ -85,6 +98,14 @@ export default {
             }
         };
 
-        return { fromDate, toDate, filteredEntries, handleDelete, formatDate };
+        return { 
+            filteredEntries, 
+            filterFrom, 
+            filterTo, 
+            handleDelete, 
+            formatDate,
+            expandedNoteId,
+            toggleNote
+        };
     }
 };

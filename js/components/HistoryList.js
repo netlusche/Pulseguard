@@ -16,14 +16,20 @@ export default {
                             <span class="unit" style="margin-right: 0.5rem">{{ i18n.t('common.unit') }}</span>
                             <span class="pulse-tag">{{ entry.pulse }} {{ i18n.t('common.bpm') }}</span>
                         </div>
-                        <div v-if="entry.notes" class="notes-preview" tabindex="0" style="width: 100%;">
-                            <span class="text-muted" style="font-size: 0.85rem; font-style: italic; display: block; width: 100%;">
+                        <div v-if="entry.notes" class="notes-preview">
+                            <span class="text-muted" style="font-size: 0.85rem; font-style: italic;" @click="toggleNote(entry.id)">
                                 "{{ entry.notes }}"
                             </span>
-                            <div class="tooltip-text">
-                                <strong>{{ i18n.t('form.notes') }}:</strong><br><br>
-                                <em style="white-space: pre-wrap;">"{{ entry.notes }}"</em>
+                            
+                            <!-- Popover Overlay -->
+                            <div v-if="expandedNoteId === entry.id" class="notes-popover">
+                                <div class="popover-close" @click.stop="toggleNote(entry.id)">&times;</div>
+                                <strong style="display:block; margin-bottom: 0.5rem;">{{ i18n.t('form.notes') }}:</strong>
+                                <em style="white-space: pre-wrap; font-style: italic;">"{{ entry.notes }}"</em>
                             </div>
+                            
+                            <!-- Invisible Backdrop -->
+                            <div v-if="expandedNoteId === entry.id" class="popover-backdrop" @click.stop="toggleNote(entry.id)"></div>
                         </div>
                     </div>
                     
@@ -44,11 +50,21 @@ export default {
     `,
     setup(props) {
         const Vue = window.Vue;
+        const expandedNoteId = Vue.ref(null);
+        
         const sortedEntries = Vue.computed(() => {
             return [...props.state.measurements]
                 .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
                 .slice(0, 10);
         });
+
+        const toggleNote = (id) => {
+            if (expandedNoteId.value === id) {
+                expandedNoteId.value = null;
+            } else {
+                expandedNoteId.value = id;
+            }
+        };
 
         const handleDelete = async (id) => {
             if (confirm(props.i18n.t('dashboard.deleteConfirm'))) {
@@ -57,6 +73,6 @@ export default {
             }
         };
 
-        return { sortedEntries, handleDelete, formatDate };
+        return { sortedEntries, handleDelete, formatDate, expandedNoteId, toggleNote };
     }
 };

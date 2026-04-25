@@ -31,6 +31,8 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS users (
     verification_token $varchar,
     pending_email $varchar,
     two_factor_code $varchar,
+    reset_token $varchar,
+    reset_expires DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )");
 
@@ -39,6 +41,8 @@ try { $pdo->exec("ALTER TABLE users ADD COLUMN email_verified INTEGER DEFAULT 0"
 try { $pdo->exec("ALTER TABLE users ADD COLUMN verification_token $varchar"); } catch (PDOException $e) {}
 try { $pdo->exec("ALTER TABLE users ADD COLUMN pending_email $varchar"); } catch (PDOException $e) {}
 try { $pdo->exec("ALTER TABLE users ADD COLUMN two_factor_code $varchar"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE users ADD COLUMN reset_token $varchar"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE users ADD COLUMN reset_expires DATETIME"); } catch (PDOException $e) {}
 try { $pdo->exec("ALTER TABLE users ADD COLUMN created_at DATETIME DEFAULT CURRENT_TIMESTAMP"); } catch (PDOException $e) {}
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS settings (

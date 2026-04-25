@@ -52,8 +52,11 @@ export default {
             </form>
             
             <div v-if="!requires2FA" style="text-align: center; margin-top: 1rem;">
-                <button @click="isLogin = !isLogin" class="btn btn-ghost">
+                <button @click="isLogin = !isLogin" class="btn btn-ghost w-full">
                     {{ isLogin ? i18n.t('auth.switchToRegister') : i18n.t('auth.switchToLogin') }}
+                </button>
+                <button v-if="isLogin" @click="$emit('switch-view', 'forgot-password')" class="btn-link" style="display: block; width: 100%; margin-top: 0.5rem; font-size: 0.9rem; color: #64748b; background: none; border: none; cursor: pointer;">
+                    {{ i18n.t('auth.forgotPasswordTitle') || 'Forgot Password?' }}
                 </button>
             </div>
             

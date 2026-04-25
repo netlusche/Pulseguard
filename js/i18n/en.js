@@ -81,7 +81,15 @@ export default {
         verifySuccess: "Success!",
         verifyFailed: "Verification Failed",
         verifyContinueBtn: "Continue to Login",
-        verifyGoLoginBtn: "Go to Login"
+        verifyGoLoginBtn: "Go to Login",
+        forgotPasswordTitle: "Forgot Password?",
+        forgotPasswordDesc: "Enter your email to receive a reset link.",
+        sendResetLinkBtn: "Send Reset Link",
+        resetLinkSent: "If the email exists, we have sent a reset link.",
+        resetPasswordTitle: "Set New Password",
+        resetPasswordBtn: "Reset Password",
+        resetSuccess: "Password reset successfully. You can now log in.",
+        resetError: "The link is invalid or has expired."
     },
     admin: {
         title: "Admin Dashboard",
@@ -110,6 +118,8 @@ export default {
         currentPassword: "Current Password (required)",
         save: "Save Profile",
         success: "Profile updated successfully.",
-        error: "Error saving profile."
+        error: "Error saving profile.",
+        reloginRequired: "Profile updated. Please log in again.",
+        simultaneousChangeError: "Please change email and password separately, not at the same time."
     }
 };

@@ -81,7 +81,15 @@ export default {
         verifySuccess: "Succes!",
         verifyFailed: "Verificare eșuată",
         verifyContinueBtn: "Continuă la autentificare",
-        verifyGoLoginBtn: "Mergi la autentificare"
+        verifyGoLoginBtn: "Mergi la autentificare",
+        forgotPasswordTitle: "Ai uitat parola?",
+        forgotPasswordDesc: "Introdu adresa de e-mail pentru a primi un link de resetare.",
+        sendResetLinkBtn: "Trimite link de resetare",
+        resetLinkSent: "Dacă e-mailul există, am trimis un link de resetare.",
+        resetPasswordTitle: "Setează o nouă parolă",
+        resetPasswordBtn: "Resetează parola",
+        resetSuccess: "Parola a fost resetată cu succes. Acum te poți autentifica.",
+        resetError: "Link-ul este invalid sau a expirat."
     },
     admin: {
         title: "Panou de control Administrator",
@@ -110,6 +118,8 @@ export default {
         currentPassword: "Parola curentă (obligatoriu)",
         save: "Salvează profilul",
         success: "Profil actualizat cu succes.",
-        error: "Eroare la salvarea profilului."
+        error: "Eroare la salvarea profilului.",
+        reloginRequired: "Profil actualizat. Te rugăm să te autentifici din nou.",
+        simultaneousChangeError: "Te rugăm să schimbi e-mailul și parola separat, nu în același timp."
     }
 };

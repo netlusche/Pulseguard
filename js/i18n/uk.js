@@ -81,7 +81,15 @@ export default {
         verifySuccess: "Успіх!",
         verifyFailed: "Верифікація не вдалася",
         verifyContinueBtn: "Продовжити вхід",
-        verifyGoLoginBtn: "Перейти до входу"
+        verifyGoLoginBtn: "Перейти до входу",
+        forgotPasswordTitle: "Забули пароль?",
+        forgotPasswordDesc: "Введіть свій email, щоб отримати посилання для скидання.",
+        sendResetLinkBtn: "Відправити посилання",
+        resetLinkSent: "Якщо email існує, ми відправили посилання для скидання.",
+        resetPasswordTitle: "Встановіть новий пароль",
+        resetPasswordBtn: "Скинути пароль",
+        resetSuccess: "Пароль успішно скинуто. Тепер ви можете увійти.",
+        resetError: "Посилання недійсне або термін його дії минув."
     },
     admin: {
         title: "Панель адміністратора",
@@ -110,6 +118,8 @@ export default {
         currentPassword: "Поточний пароль (обов'язково)",
         save: "Зберегти профіль",
         success: "Профіль успішно оновлено.",
-        error: "Помилка збереження профілю."
+        error: "Помилка збереження профілю.",
+        reloginRequired: "Профіль оновлено. Будь ласка, увійдіть знову.",
+        simultaneousChangeError: "Будь ласка, змінюйте email та пароль окремо, а не одночасно."
     }
 };

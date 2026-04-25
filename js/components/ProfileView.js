@@ -19,6 +19,16 @@ export default {
                         </button>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>{{ i18n.t('auth.passwordConfirm') || 'Confirm Password' }}</label>
+                    <div class="password-wrapper">
+                        <input v-model="confirmPassword" :type="showConfirmPassword ? 'text' : 'password'" placeholder="***">
+                        <button type="button" class="password-toggle" @click="showConfirmPassword = !showConfirmPassword" tabindex="-1">
+                            <svg v-if="showConfirmPassword" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                    </div>
+                </div>
                 <div class="form-group" style="margin-top: 2rem; border-top: 1px solid #334155; padding-top: 1rem;">
                     <label style="color: #ef4444">{{ i18n.t('profile.currentPassword') }}</label>
                     <div class="password-wrapper">
@@ -51,15 +61,31 @@ export default {
         const Vue = window.Vue;
         const newEmail = Vue.ref(props.state.currentUser ? props.state.currentUser.email : '');
         const newPassword = Vue.ref('');
+        const confirmPassword = Vue.ref('');
         const currentPassword = Vue.ref('');
         const error = Vue.ref(null);
         const successMsg = Vue.ref(null);
         const showNewPassword = Vue.ref(false);
+        const showConfirmPassword = Vue.ref(false);
         const showCurrentPassword = Vue.ref(false);
 
         const handleSubmit = async () => {
             error.value = null;
             successMsg.value = null;
+            
+            const emailChanged = newEmail.value && newEmail.value !== props.state.currentUser.email;
+            const passwordChanged = newPassword.value.length > 0;
+            
+            if (emailChanged && passwordChanged) {
+                error.value = props.i18n.t('profile.simultaneousChangeError') || 'Please change email and password separately.';
+                return;
+            }
+            
+            if (newPassword.value && newPassword.value !== confirmPassword.value) {
+                error.value = props.i18n.t('auth.passwordMismatch') || 'Passwords do not match';
+                return;
+            }
+            
             try {
                 const responseData = await props.authService.updateProfile(
                     currentPassword.value,
@@ -67,25 +93,36 @@ export default {
                     newPassword.value
                 );
                 
+                if (responseData.require_logout) {
+                    successMsg.value = props.i18n.t('profile.reloginRequired') || 'Profil aktualisiert. Bitte logge dich neu ein.';
+                    setTimeout(() => {
+                        props.authService.logout();
+                        props.state.currentUser = null;
+                    }, 3000);
+                    return;
+                }
+                
                 if (responseData.email_change_pending) {
-                    successMsg.value = props.i18n.t('profile.emailPending');
+                    successMsg.value = props.i18n.t('auth.emailPending');
                 } else {
                     successMsg.value = props.i18n.t('profile.success');
                 }
                 
                 if (responseData.user) {
                     props.state.currentUser = responseData.user;
+                    newEmail.value = responseData.user.email;
                 }
                 currentPassword.value = '';
                 newPassword.value = '';
+                confirmPassword.value = '';
             } catch (err) {
                 error.value = err.message || props.i18n.t('profile.error');
             }
         };
 
         return { 
-            newEmail, newPassword, currentPassword, error, successMsg, 
-            showNewPassword, showCurrentPassword, handleSubmit 
+            newEmail, newPassword, confirmPassword, currentPassword, error, successMsg, 
+            showNewPassword, showConfirmPassword, showCurrentPassword, handleSubmit 
         };
     }
 };

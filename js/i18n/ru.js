@@ -81,7 +81,15 @@ export default {
         verifySuccess: "Успех!",
         verifyFailed: "Верификация не удалась",
         verifyContinueBtn: "Продолжить вход",
-        verifyGoLoginBtn: "Перейти ко входу"
+        verifyGoLoginBtn: "Перейти ко входу",
+        forgotPasswordTitle: "Забыли пароль?",
+        forgotPasswordDesc: "Введите ваш email, чтобы получить ссылку для сброса.",
+        sendResetLinkBtn: "Отправить ссылку",
+        resetLinkSent: "Если email существует, мы отправили ссылку для сброса.",
+        resetPasswordTitle: "Установите новый пароль",
+        resetPasswordBtn: "Сбросить пароль",
+        resetSuccess: "Пароль успешно сброшен. Теперь вы можете войти.",
+        resetError: "Ссылка недействительна или истек срок ее действия."
     },
     admin: {
         title: "Панель администратора",
@@ -110,6 +118,8 @@ export default {
         currentPassword: "Текущий пароль (обязательно)",
         save: "Сохранить профиль",
         success: "Профиль успешно обновлен.",
-        error: "Ошибка сохранения профиля."
+        error: "Ошибка сохранения профиля.",
+        reloginRequired: "Профиль обновлен. Пожалуйста, войдите снова.",
+        simultaneousChangeError: "Пожалуйста, меняйте email и пароль отдельно, а не одновременно."
     }
 };

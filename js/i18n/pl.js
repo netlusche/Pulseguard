@@ -81,7 +81,15 @@ export default {
         verifySuccess: "Sukces!",
         verifyFailed: "Weryfikacja nie powiodła się",
         verifyContinueBtn: "Przejdź do logowania",
-        verifyGoLoginBtn: "Idź do logowania"
+        verifyGoLoginBtn: "Idź do logowania",
+        forgotPasswordTitle: "Zapomniałeś hasła?",
+        forgotPasswordDesc: "Podaj swój e-mail, aby otrzymać link do resetowania.",
+        sendResetLinkBtn: "Wyślij link resetujący",
+        resetLinkSent: "Jeśli e-mail istnieje, wysłaliśmy link do resetowania.",
+        resetPasswordTitle: "Ustaw nowe hasło",
+        resetPasswordBtn: "Zresetuj hasło",
+        resetSuccess: "Hasło zostało zresetowane. Możesz się teraz zalogować.",
+        resetError: "Link jest nieważny lub wygasł."
     },
     admin: {
         title: "Panel administratora",
@@ -110,6 +118,8 @@ export default {
         currentPassword: "Obecne hasło (wymagane)",
         save: "Zapisz profil",
         success: "Profil zaktualizowany pomyślnie.",
-        error: "Błąd podczas zapisywania profilu."
+        error: "Błąd podczas zapisywania profilu.",
+        reloginRequired: "Profil zaktualizowany. Zaloguj się ponownie.",
+        simultaneousChangeError: "Proszę zmieniać e-mail i hasło osobno, nie w tym samym czasie."
     }
 };

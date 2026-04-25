@@ -81,7 +81,15 @@ export default {
         verifySuccess: "Başarılı!",
         verifyFailed: "Doğrulama Başarısız",
         verifyContinueBtn: "Girişe Devam Et",
-        verifyGoLoginBtn: "Girişe Git"
+        verifyGoLoginBtn: "Girişe Git",
+        forgotPasswordTitle: "Şifrenizi mi unuttunuz?",
+        forgotPasswordDesc: "Sıfırlama bağlantısı almak için e-postanızı girin.",
+        sendResetLinkBtn: "Sıfırlama Bağlantısı Gönder",
+        resetLinkSent: "E-posta mevcutsa, bir sıfırlama bağlantısı gönderdik.",
+        resetPasswordTitle: "Yeni Şifre Belirle",
+        resetPasswordBtn: "Şifreyi Sıfırla",
+        resetSuccess: "Şifre başarıyla sıfırlandı. Artık giriş yapabilirsiniz.",
+        resetError: "Bağlantı geçersiz veya süresi dolmuş."
     },
     admin: {
         title: "Yönetici Paneli",
@@ -110,6 +118,8 @@ export default {
         currentPassword: "Mevcut Şifre (gerekli)",
         save: "Profili Kaydet",
         success: "Profil başarıyla güncellendi.",
-        error: "Profil kaydedilirken hata oluştu."
+        error: "Profil kaydedilirken hata oluştu.",
+        reloginRequired: "Profil güncellendi. Lütfen tekrar giriş yapın.",
+        simultaneousChangeError: "Lütfen e-posta ve şifrenizi aynı anda değil, ayrı ayrı değiştirin."
     }
 };

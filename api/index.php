@@ -164,6 +164,71 @@ try {
         }
         exit;
     }
+    if ($action === 'verify_change' && $method === 'GET') {
+        $token = $_GET['token'] ?? '';
+        $stmt = $db->prepare("SELECT id, pending_email FROM users WHERE verification_token = ? AND pending_email IS NOT NULL");
+        $stmt->execute([$token]);
+        $targetUser = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($targetUser) {
+            $stmt = $db->prepare("UPDATE users SET email = ?, pending_email = NULL, verification_token = NULL WHERE id = ?");
+            $stmt->execute([$targetUser['pending_email'], $targetUser['id']]);
+            echo json_encode(['success' => true, 'message' => 'Email changed successfully.']);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid or expired token.']);
+        }
+        exit;
+    }
+
+    if ($action === 'forgot_password' && $method === 'POST') {
+        $input = json_decode(file_get_contents('php://input'), true);
+        $email = $input['email'] ?? '';
+        $stmt = $db->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        if ($stmt->fetch()) {
+            $token = bin2hex(random_bytes(16));
+            $expires = date('Y-m-d H:i:s', time() + 3600);
+            $stmt = $db->prepare("UPDATE users SET reset_token = ?, reset_expires = ? WHERE email = ?");
+            $stmt->execute([$token, $expires, $email]);
+            
+            $basePath = dirname(dirname($_SERVER['PHP_SELF']));
+            $basePath = $basePath === '/' ? '' : $basePath;
+            $resetLink = "http://" . $_SERVER['HTTP_HOST'] . $basePath . "/index.html?action=reset_password&token=" . $token;
+            
+            sendMail($email, "Password Reset", "Click here to reset your password: $resetLink");
+        }
+        // Always return success to prevent email enumeration
+        echo json_encode(['success' => true]);
+        exit;
+    }
+
+    if ($action === 'reset_password' && $method === 'POST') {
+        $input = json_decode(file_get_contents('php://input'), true);
+        $token = $input['token'] ?? '';
+        $newPassword = $input['password'] ?? '';
+        
+        $stmt = $db->prepare("SELECT id, reset_expires FROM users WHERE reset_token = ?");
+        $stmt->execute([$token]);
+        $targetUser = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($targetUser && strtotime($targetUser['reset_expires']) > time()) {
+            $strictPolicy = getSetting($db, 'strict_password_policy', '0');
+            if (!checkPasswordPolicy($newPassword, $strictPolicy)) {
+                http_response_code(400);
+                echo json_encode(['error' => 'Password does not meet policy requirements.']);
+                exit;
+            }
+            $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+            $stmt = $db->prepare("UPDATE users SET password_hash = ?, reset_token = NULL, reset_expires = NULL WHERE id = ?");
+            $stmt->execute([$hash, $targetUser['id']]);
+            echo json_encode(['success' => true]);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid or expired token.']);
+        }
+        exit;
+    }
 
     $user = getAuthUser();
     if (!$user) {
@@ -216,29 +281,14 @@ try {
         }
 
         $payload = ['id' => $user['id'], 'email' => $user['email'], 'role' => $user['role'], 'exp' => time() + 86400 * 30];
+        $requireLogout = $emailChanged || !empty($newPassword);
         echo json_encode([
             'success' => true,
             'email_change_pending' => $emailChanged,
+            'require_logout' => $requireLogout,
             'token' => generateJWT($payload),
             'user' => ['id' => $user['id'], 'email' => $user['email'], 'role' => $user['role']]
         ]);
-        exit;
-    }
-
-    if ($action === 'verify_change' && $method === 'GET') {
-        $token = $_GET['token'] ?? '';
-        $stmt = $db->prepare("SELECT id, pending_email FROM users WHERE verification_token = ? AND pending_email IS NOT NULL");
-        $stmt->execute([$token]);
-        $targetUser = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if ($targetUser) {
-            $stmt = $db->prepare("UPDATE users SET email = ?, pending_email = NULL, verification_token = NULL WHERE id = ?");
-            $stmt->execute([$targetUser['pending_email'], $targetUser['id']]);
-            echo json_encode(['success' => true, 'message' => 'Email changed successfully.']);
-        } else {
-            http_response_code(400);
-            echo json_encode(['error' => 'Invalid or expired token.']);
-        }
         exit;
     }
 

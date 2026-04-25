@@ -81,7 +81,15 @@ export default {
         verifySuccess: "نجاح!",
         verifyFailed: "فشل التحقق",
         verifyContinueBtn: "المتابعة لتسجيل الدخول",
-        verifyGoLoginBtn: "الذهاب لتسجيل الدخول"
+        verifyGoLoginBtn: "الذهاب لتسجيل الدخول",
+        forgotPasswordTitle: "هل نسيت كلمة المرور؟",
+        forgotPasswordDesc: "أدخل بريدك الإلكتروني لتلقي رابط إعادة التعيين.",
+        sendResetLinkBtn: "إرسال رابط إعادة التعيين",
+        resetLinkSent: "إذا كان البريد الإلكتروني موجودًا، فقد أرسلنا رابط إعادة التعيين.",
+        resetPasswordTitle: "تعيين كلمة مرور جديدة",
+        resetPasswordBtn: "إعادة تعيين كلمة المرور",
+        resetSuccess: "تم إعادة تعيين كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول.",
+        resetError: "الرابط غير صالح أو انتهت صلاحيته."
     },
     admin: {
         title: "لوحة تحكم المسؤول",
@@ -110,6 +118,8 @@ export default {
         currentPassword: "كلمة المرور الحالية (مطلوب)",
         save: "حفظ الملف الشخصي",
         success: "تم تحديث الملف الشخصي بنجاح.",
-        error: "خطأ في حفظ الملف الشخصي."
+        error: "خطأ في حفظ الملف الشخصي.",
+        reloginRequired: "تم تحديث الملف الشخصي. يرجى تسجيل الدخول مرة أخرى.",
+        simultaneousChangeError: "يرجى تغيير البريد الإلكتروني وكلمة المرور بشكل منفصل، وليس في نفس الوقت."
     }
 };

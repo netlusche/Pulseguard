@@ -66,6 +66,32 @@ export class AuthService {
         return await response.json();
     }
 
+    async forgotPassword(email) {
+        const response = await fetch(`${this.baseUrl}/index.php?action=forgot_password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.error || 'Request failed');
+        }
+        return await response.json();
+    }
+
+    async resetPassword(token, password) {
+        const response = await fetch(`${this.baseUrl}/index.php?action=reset_password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token, password })
+        });
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.error || 'Reset failed');
+        }
+        return await response.json();
+    }
+
     logout() {
         localStorage.removeItem('pulseguard_token');
         localStorage.removeItem('pulseguard_user');
@@ -88,12 +114,9 @@ export class AuthService {
         
         const data = await response.json();
         
-        if (data.email_change_pending) {
-            // Keep the old email in user object until verified
-        } else {
-            localStorage.setItem('pulseguard_token', data.token);
-            localStorage.setItem('pulseguard_user', JSON.stringify(data.user));
-        }
+        // Always save token/user. The API returns the currently active email in data.user
+        localStorage.setItem('pulseguard_token', data.token);
+        localStorage.setItem('pulseguard_user', JSON.stringify(data.user));
         return data;
     }
 

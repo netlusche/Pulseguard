@@ -15,6 +15,8 @@ import LoginView from './components/LoginView.js';
 import VerifyView from './components/VerifyView.js';
 import AdminDashboard from './components/AdminDashboard.js';
 import ProfileView from './components/ProfileView.js';
+import ForgotPasswordView from './components/ForgotPasswordView.js';
+import ResetPasswordView from './components/ResetPasswordView.js';
 
 const { createApp, onMounted, computed, ref, watch } = window.Vue;
 
@@ -29,7 +31,9 @@ const App = {
         'login-view': LoginView,
         'verify-view': VerifyView,
         'admin-dashboard': AdminDashboard,
-        'profile-view': ProfileView
+        'profile-view': ProfileView,
+        'forgot-password-view': ForgotPasswordView,
+        'reset-password-view': ResetPasswordView
     },
     setup() {
         const state = createState(window.Vue);
@@ -44,12 +48,13 @@ const App = {
         };
         const verifyAction = ref(null);
         const verifyToken = ref(null);
+        const authView = ref('login');
 
         // Check URL for verification tokens
         const params = new URLSearchParams(window.location.search);
         const action = params.get('action');
         const token = params.get('token');
-        if ((action === 'verify' || action === 'verify_change') && token) {
+        if ((action === 'verify' || action === 'verify_change' || action === 'reset_password') && token) {
             verifyAction.value = action;
             verifyToken.value = token;
         }
@@ -94,22 +99,33 @@ const App = {
 
         return { 
             state, i18n, storage, authService, dashboardStatus, 
-            handleLogout, toggleView, setView, currentView, verifyAction, verifyToken 
+            handleLogout, toggleView, setView, currentView, verifyAction, verifyToken, authView
         };
     },
     template: `
         <div class="app-container">
             <app-header :state="state" :i18n="i18n" :currentView="currentView" @logout="handleLogout" @toggle-view="toggleView" @set-view="setView" />
             
-            <verify-view v-if="verifyToken" 
+            <reset-password-view v-if="verifyAction === 'reset_password'" 
+                :state="state" 
+                :i18n="i18n" 
+                :authService="authService"
+                :resetToken="verifyToken"
+                @continue="verifyToken = null; verifyAction = null;" />
+
+            <verify-view v-else-if="verifyToken" 
                 :state="state" 
                 :i18n="i18n" 
                 :authService="authService"
                 :verifyAction="verifyAction"
                 :verifyToken="verifyToken"
-                @continue="verifyToken = null" />
+                @continue="verifyToken = null; verifyAction = null;" />
             
-            <login-view v-else-if="!state.currentUser" :state="state" :i18n="i18n" :authService="authService" />
+            <forgot-password-view v-else-if="!state.currentUser && authView === 'forgot-password'"
+                :state="state" :i18n="i18n" :authService="authService" @switch="authView = $event" />
+
+            <login-view v-else-if="!state.currentUser" 
+                :state="state" :i18n="i18n" :authService="authService" @switch-view="authView = $event" />
             
             <template v-else>
                 <admin-dashboard v-if="currentView === 'admin' && state.currentUser.role === 'admin'" :state="state" :i18n="i18n" :authService="authService" />

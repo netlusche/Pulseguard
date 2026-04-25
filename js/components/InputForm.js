@@ -42,12 +42,18 @@ export default {
     `,
     setup(props) {
         const Vue = window.Vue;
+        const getLocalISOString = () => {
+            const now = new Date();
+            const localNow = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+            return localNow.toISOString().slice(0, 16);
+        };
+
         const form = Vue.ref({
             sys: '',
             dia: '',
             pulse: '',
             notes: '',
-            timestamp: new Date().toISOString().slice(0, 16)
+            timestamp: getLocalISOString()
         });
 
         const handleSubmit = async () => {
@@ -68,12 +74,12 @@ export default {
                 dia: '',
                 pulse: '',
                 notes: '',
-                timestamp: new Date().toISOString().slice(0, 16)
+                timestamp: getLocalISOString()
             };
 
             setTimeout(() => {
                 props.state.lastFeedback = null;
-            }, 5000);
+            }, 10000);
             
             // Trigger chart update event if needed, but Chart.js watcher is better
         };

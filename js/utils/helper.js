@@ -8,25 +8,52 @@ export const getClassification = (sys, dia) => {
 };
 
 /**
- * Trend Analysis: returns true if last 3 measurements are critical
+ * Trend Analysis: Uses Linear Regression over the last 7 days.
+ * Requires at least 4 measurements to establish a reliable trendline.
  */
 export const getTrendStatus = (measurements) => {
-    if (measurements.length < 3) return null;
-    const sorted = [...measurements].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-    const avgSys = (sorted[0].sys + sorted[1].sys + sorted[2].sys) / 3;
-    const avgDia = (sorted[0].dia + sorted[1].dia + sorted[2].dia) / 3;
+    const now = new Date();
+    const sevenDaysAgo = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000));
     
-    // Calculate if there's a significant rising trend between the 3rd most recent and the most recent
-    const isRisingSys = sorted[0].sys > sorted[2].sys + 5;
-    const isRisingDia = sorted[0].dia > sorted[2].dia + 5;
+    const recentMeasurements = measurements.filter(m => new Date(m.timestamp) >= sevenDaysAgo);
     
-    const isDroppingSys = sorted[0].sys < sorted[2].sys - 5;
-    const isDroppingDia = sorted[0].dia < sorted[2].dia - 5;
+    if (recentMeasurements.length < 4) return null;
     
-    if (isRisingSys || isRisingDia) {
+    const n = recentMeasurements.length;
+    let sumX = 0, sumY_sys = 0, sumY_dia = 0, sumXY_sys = 0, sumXY_dia = 0, sumX2 = 0;
+    
+    // Sort oldest to newest for linear regression
+    const sorted = [...recentMeasurements].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+    const baseTime = new Date(sorted[0].timestamp).getTime();
+    
+    sorted.forEach(m => {
+        const x = (new Date(m.timestamp).getTime() - baseTime) / (1000 * 60 * 60 * 24); // Time in days
+        const sys = m.sys;
+        const dia = m.dia;
+        
+        sumX += x;
+        sumY_sys += sys;
+        sumY_dia += dia;
+        sumXY_sys += x * sys;
+        sumXY_dia += x * dia;
+        sumX2 += x * x;
+    });
+    
+    const denominator = (n * sumX2 - sumX * sumX);
+    if (denominator === 0) return null; // All measurements at exactly the same millisecond
+    
+    const slopeSys = (n * sumXY_sys - sumX * sumY_sys) / denominator;
+    const slopeDia = (n * sumXY_dia - sumX * sumY_dia) / denominator;
+    
+    const avgSys = sumY_sys / n;
+    const avgDia = sumY_dia / n;
+    
+    const significantSlope = 1.5; // >1.5 points per day = approx >10 points per week
+    
+    if (slopeSys > significantSlope || slopeDia > significantSlope) {
         if (avgSys >= 140 || avgDia >= 90) return 'danger';
         if (avgSys >= 130 || avgDia >= 85) return 'warning';
-    } else if (isDroppingSys || isDroppingDia) {
+    } else if (slopeSys < -significantSlope || slopeDia < -significantSlope) {
         if (avgSys < 130 && avgDia < 85) return 'success';
     }
     
